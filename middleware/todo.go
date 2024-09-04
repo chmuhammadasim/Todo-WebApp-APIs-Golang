@@ -22,7 +22,7 @@ func RateLimiter(next http.Handler) http.Handler {
 		}
 
 		requests[ip]++
-		if requests[ip] > 100 {
+		if requests[ip] > 1000 {
 			http.Error(w, "Too many requests", http.StatusTooManyRequests)
 			return
 		}
