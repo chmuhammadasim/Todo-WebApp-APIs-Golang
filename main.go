@@ -4,9 +4,8 @@ import (
 	"log"
 	"net/http"
 	"todo-app/db"
+	"todo-app/middleware"
 	"todo-app/routes"
-
-	"github.com/rs/cors"
 )
 
 func main() {
@@ -16,8 +15,8 @@ func main() {
 	// Initialize router
 	r := routes.SetupRouter()
 
-	// Setup CORS
-	handler := cors.Default().Handler(r)
+	// Setup CORS and RateLimiter middleware
+	handler := middleware.CORS(middleware.RateLimiter(r))
 
 	// Start server
 	log.Println("Server is running on port 8080")
